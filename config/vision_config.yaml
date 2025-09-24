@@ -1,0 +1,87 @@
+# Vision System Configuration for Dyer-Maker Digital Twin
+vision:
+  # Algorithm selection
+  algorithm_type: "hsv_color"  # Options: hsv_color
+  
+  # Camera settings
+  camera:
+    topic: "/camera/image_raw"
+    compressed_input: false
+    frame_rate: 30
+    resolution: [640, 480]
+    
+  # Detection zone (normalized coordinates: x1, y1, x2, y2)
+  detection_zone: [0.2, 0.2, 0.8, 0.8]
+  
+  # HSV Color Detection Parameters
+  color_ranges:
+    red:
+      # Red wraps around in HSV, so we need two ranges
+      lower1: [0, 50, 50]
+      upper1: [10, 255, 255]
+      lower2: [170, 50, 50]
+      upper2: [180, 255, 255]
+    green:
+      lower: [40, 50, 50]
+      upper: [80, 255, 255]
+    blue:
+      lower: [100, 50, 50]
+      upper: [130, 255, 255]
+  
+  # Processing parameters
+  processing:
+    min_contour_area: 500
+    max_contour_area: 10000
+    confidence_threshold: 0.7
+    gaussian_blur_kernel: [5, 5]
+    morphology_kernel_size: 5
+  
+  # Debug and visualization
+  debug:
+    publish_debug_images: true
+    save_detections: false
+    log_level: "INFO"  # DEBUG, INFO, WARN, ERROR
+  
+  # Performance tuning
+  performance:
+    max_processing_fps: 15
+    skip_frames: 0  # Process every nth frame (0 = process all)
+    threading: true
+
+# Camera Calibration (would be loaded from calibration file)
+camera_calibration:
+  # Camera intrinsic parameters
+  camera_matrix:
+    - [500.0, 0.0, 320.0]
+    - [0.0, 500.0, 240.0]
+    - [0.0, 0.0, 1.0]
+  
+  # Distortion coefficients
+  distortion_coefficients: [0.1, -0.2, 0.0, 0.0, 0.0]
+  
+  # Camera pose relative to robot base
+  camera_pose:
+    position: [0.5, 0.0, 0.8]  # [x, y, z] in meters
+    orientation: [0.0, 0.707, 0.0, 0.707]  # [x, y, z, w] quaternion
+  
+  # Field of view parameters
+  field_of_view:
+    horizontal: 60.0  # degrees
+    vertical: 45.0    # degrees
+    
+# Lighting and Environment
+environment:
+  # Expected lighting conditions
+  lighting:
+    brightness_range: [50, 200]  # Expected brightness values
+    contrast_threshold: 0.3
+    
+  # Background subtraction
+  background_subtraction:
+    enabled: false
+    learning_rate: 0.01
+    
+  # Noise filtering
+  noise_filtering:
+    enabled: true
+    gaussian_sigma: 1.0
