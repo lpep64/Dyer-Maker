@@ -1,0 +1,61 @@
+name: "Niryo NED2 Robot"
+type: "6DOF_Articulated_Robot"
+manufacturer: "Niryo"
+model: "NED2"
+
+specifications:
+  degrees_of_freedom: 6
+  reach: 440  # mm
+  payload: 300  # grams
+  repeatability: 0.5  # mm
+  weight: 5.5  # kg
+
+joint_limits:
+  joint_1:
+    min: -175  # degrees
+    max: 175
+    max_velocity: 90  # deg/s
+    max_effort: 50  # Nm
+  joint_2:
+    min: -95
+    max: 95
+    max_velocity: 90
+    max_effort: 50
+  joint_3:
+    min: -80
+    max: 80
+    max_velocity: 90
+    max_effort: 30
+  joint_4:
+    min: -120
+    max: 120
+    max_velocity: 90
+    max_effort: 30
+  joint_5:
+    min: -170
+    max: 170
+    max_velocity: 115
+    max_effort: 20
+  joint_6:
+    min: -95
+    max: 95
+    max_velocity: 115
+    max_effort: 20
+
+default_position:
+  joint_1: 0.0
+  joint_2: 0.0
+  joint_3: 0.0
+  joint_4: 0.0
+  joint_5: 0.0
+  joint_6: 0.0
+
+colors:
+  base: "niryo_blue"
+  links: "niryo_white"
+  joints: "niryo_grey"
+
+files:
+  urdf: "ned2.urdf.xacro"
+  step: "NED2_STEP.step"
+  logic: "logic.py"
